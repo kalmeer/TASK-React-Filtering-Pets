@@ -10,17 +10,20 @@ export function PetsList() {
   const [query, setQuery] = useState(petsData);
   const [type, setType] = useState(petsData);
 
-  const handleType = (event) => {
-    setType(petsData.filter((pet) => pet.type.includes(event.target.value)));
-    setPetList(type.map((pet) => <PetItem pet={pet} key={pet.id} />));
-  };
-  const handleChange = (event) => {
-    setQuery(
-      petsData.filter((pet) =>
-        pet.name.toLowerCase().includes(event.target.value)
-      )
+  const handleType = (e) => {
+    const filteredPets = petsData.filter((pet) =>
+      pet.type.includes(e.target.value)
     );
-    setPetList(query.map((pet) => <PetItem pet={pet} key={pet.id} />));
+    setType(filteredPets);
+    setPetList(filteredPets.map((pet) => <PetItem pet={pet} key={pet.id} />));
+  };
+
+  const handleChange = (e) => {
+    const filteredPets = petsData.filter((pet) =>
+      pet.name.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setQuery(filteredPets);
+    setPetList(filteredPets.map((pet) => <PetItem pet={pet} key={pet.id} />));
   };
 
   return (
